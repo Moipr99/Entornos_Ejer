@@ -1,7 +1,0 @@
-dmunuera#123456#David Munuera Sanchez#12345678A#dmunuera@gmail.com#Calle Falsa, 123#18/09/1988#user
-dave#654321#Dave M Sanchez#87654321A#davems@gmail.com#Calle Falsa, 123#12/11/1955#user
-Moira22#12340987#Moira#23465880B#falsomail@gmail.com#Avenida Random, 99#01/05/1999#user
-Polo99#09874321#PolP#99846772Z#emial3@gmail.com#Via de la amagura, 33#28/08/1992#user
-Prueba#123456#Proto#23456433N#false@gamil.com#calle,3#30/05/2000#user
-LukeSW#123456#Luke Skywalker#21358457M#sky@gmail.com#endor, 34#23/02/1998#user
-Prueba2#1234567#Test1#12345649M#madwi@mewvb.com#avfalse#22/9/96#user
