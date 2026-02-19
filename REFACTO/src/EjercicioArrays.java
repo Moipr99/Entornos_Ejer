@@ -61,7 +61,7 @@ public class EjercicioArrays {
         System.out.println("Lista de clase :" + Arrays.toString(listaClase));
         System.out.println("Array de Notas :" + notas);
         
-     // METODO PARA PRACT Y CALF?
+     // METODO PARA PRACT Y CALF
         //creamos el array de notas "practicas" 
         practicas = new int[numAlumnos];
         meterNotas(practicas);
@@ -72,30 +72,19 @@ public class EjercicioArrays {
         System.out.println("Prácticas      :" + Arrays.toString(practicas));
         System.out.println("Calificaciones :" + Arrays.toString(calificaciones));
         
-     // METODO PARA ESTATDISTICA?
+     // METODO PARA ESTATDISTICAS
         //Sacamos la estadística de calificaciones
         //hacemos un array de 10 para la estadística.
-        estadistica = new float[10]; 
+        estadistica = estadisticas(calificaciones);
       
-        for (int i=0; i<10; i++){
-            float count = 0;
-            float sum = 0;
-            for (int j=0; j<control.length; j++){
-                if ((i < calificaciones[j]) && ((i+1) >= calificaciones[j] )) {
-                    sum += calificaciones[j];
-                    count += 1;
-                }
-            }
-            if (count != 0){
-                estadistica[i] = ( (float)count / numAlumnos);
-            }else{ estadistica[i] = 0;}
+        for (int i=0; i< estadistica.length; i++){
             double sol = (Math.round(estadistica[i] * 10000.0)) / 100.0;
             System.out.println("Estadística nota tramo <=" 
                 + (i+1) + " = " 
                 + sol + "%");
         }
         
-      // METODO PARA APROB Y SUSP?
+      // METODO PARA APROB Y SUSP
         //Aprobados y suspensos
         aprobados = new int[numAlumnos];
         suspensos = new int[numAlumnos];
@@ -160,17 +149,37 @@ public class EjercicioArrays {
         return (int) (Math.random() * 11);
     }
     
+    // Array para las notas
     public static void meterNotas(int[] array) {
     	for (int i = 0; i < array.length; i++) {
             array[i] = generarNota();
         }
     }
-    
+    // Metodo para la media 
     public static float[] calcularCalificaciones(Integer[] cal, int[] pra ) {
     	float[] media = new float[cal.length];
     	for(int i = 0; i < cal.length; i++) {
     		media[i] = (float) (cal[i] + pra[i]) / 2;
     	}
     	return media;
+    }
+    
+    // Metodo para las estadisticas
+    public static float[] estadisticas(float[] calificaciones) {
+    	float[] estadistica = new float[10];
+    	for(int i = 0; i < 10; i++) {
+    		float count = 0;
+    		for(int j = 0; j < calificaciones.length; j++) {
+    			if ((i < calificaciones[j]) && ((i+1) >= calificaciones[j])) {
+    				count += 1;
+    			}
+    		}
+    		if (count != 0) {
+                estadistica[i] = (count / calificaciones.length);
+            } else {
+                estadistica[i] = 0;
+            }
+        }
+        return estadistica;
     }
 }
