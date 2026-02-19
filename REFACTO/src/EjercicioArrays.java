@@ -15,12 +15,12 @@ public class EjercicioArrays {
 		int[] suspensos;
         int maxNota = 0;
         int minNota = 0;
-        int indMaxNota;
-        int  indMinNota;
+        int indMaxNota; // Posocion donde sale nota más alta
+        int  indMinNota; // Pos nota más baja
         int postEval;
 		double[] calif;
 		
-        //Genera notass con el nuevo metodo
+        //Generar notas con el nuevo metodo
 		for(int i=0; i < control.length; i++){
             control[i] = generarNota(); 
         }
@@ -61,25 +61,21 @@ public class EjercicioArrays {
         System.out.println("Lista de clase :" + Arrays.toString(listaClase));
         System.out.println("Array de Notas :" + notas);
         
-        //creamos el array de notas "practicas"
+     // METODO PARA PRACT Y CALF?
+        //creamos el array de notas "practicas" 
         practicas = new int[numAlumnos];
-        for(int i=0; i < practicas.length; i++){
-            practicas[i] = generarNota();
-        }
-        //Creamos el vector calificaciones
-        calificaciones = new float[numAlumnos];
-        for(int i = 0; i<control.length; i++){
-            calificaciones[i] = 
-                    (((float) control[i] 
-                    + (float) practicas[i]) 
-                    / 2);
-        }
+        meterNotas(practicas);
+        
+        //Creamos el vector calificaciones (media)
+        calificaciones = calcularCalificaciones(control, practicas);  
+        
         System.out.println("Prácticas      :" + Arrays.toString(practicas));
         System.out.println("Calificaciones :" + Arrays.toString(calificaciones));
         
+     // METODO PARA ESTATDISTICA?
         //Sacamos la estadística de calificaciones
         //hacemos un array de 10 para la estadística.
-        estadistica = new float[10];
+        estadistica = new float[10]; 
       
         for (int i=0; i<10; i++){
             float count = 0;
@@ -98,13 +94,15 @@ public class EjercicioArrays {
                 + (i+1) + " = " 
                 + sol + "%");
         }
+        
+      // METODO PARA APROB Y SUSP?
         //Aprobados y suspensos
         aprobados = new int[numAlumnos];
         suspensos = new int[numAlumnos];
         int countAprobados = 0;
         int countSuspensos = 0;
         for (int i=0; i<numAlumnos; i++){
-            if (calificaciones[i] < 5){
+            if (calificaciones[i] < 5){ // 
                 aprobados[i] = i;
                 countAprobados += 1;
             }else{ 
@@ -116,6 +114,8 @@ public class EjercicioArrays {
                 + Arrays.toString(aprobados));
         System.out.println("Relación de suspensos por nº de lista: " 
                 + Arrays.toString(suspensos));
+        
+     // METODO/ARREGLO DE RESUMEN
         //Resumen de aprobados y suspensos
         int i = 0;
         int x = 0;
@@ -158,5 +158,19 @@ public class EjercicioArrays {
     
     public static int generarNota() {
         return (int) (Math.random() * 11);
+    }
+    
+    public static void meterNotas(int[] array) {
+    	for (int i = 0; i < array.length; i++) {
+            array[i] = generarNota();
+        }
+    }
+    
+    public static float[] calcularCalificaciones(Integer[] cal, int[] pra ) {
+    	float[] media = new float[cal.length];
+    	for(int i = 0; i < cal.length; i++) {
+    		media[i] = (float) (cal[i] + pra[i]) / 2;
+    	}
+    	return media;
     }
 }
