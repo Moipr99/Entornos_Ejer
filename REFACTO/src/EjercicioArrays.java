@@ -16,7 +16,6 @@ public class EjercicioArrays {
         int minNota = 0;
         int indMaxNota; // Posocion donde sale nota más alta
         int  indMinNota; // Pos nota más baja
-        int postEval;
 		double[] calif;
 		
         //Generar notas con el nuevo metodo
@@ -24,29 +23,13 @@ public class EjercicioArrays {
             control[i] = generarNota(); 
         }
 		
-        //buscamos al mayor
-        postEval = 11;
-        for(int i=0; i<control.length; i++){
-            int preEval = control[i];
-            if (preEval < postEval){
-                minNota = preEval;
-                postEval = control[i];
-            }
-        }
-        //buscamos al menor
-        postEval = 0;
-        for(int i=0; i<control.length; i++){
-            int preEval = control[i];
-            if (preEval > postEval){
-                maxNota = preEval;
-                postEval = control[i];
-            }
-        }
+        //Indices
+        maxNota = buscarMaximo(control);
+        minNota = buscarMinimo(control);
+        
         //creamos una lista de los alumnos de la clase
-        listaClase = new int[numAlumnos];
-        for (int i = 0; i < numAlumnos; i++){
-            listaClase[i] = i+1;
-        }
+        listaClase = crearListaClase(numAlumnos); 
+        
         //Empezamos el uso de listas para facilitar la tarea de índices.
         List notas = Arrays.asList(control);
         indMinNota = notas.indexOf(minNota) + 1;
@@ -63,7 +46,7 @@ public class EjercicioArrays {
      // METODO PARA PRACT Y CALF
         //creamos el array de notas "practicas" 
         practicas = new int[numAlumnos];
-        meterNotas(practicas);
+        meterNotas(control);
         
         //Creamos el vector calificaciones (media)
         calificaciones = calcularCalificaciones(control, practicas);         
@@ -120,7 +103,7 @@ public class EjercicioArrays {
     }
     
     // Array para las notas
-    public static void meterNotas(int[] array) {
+    public static void meterNotas(Integer[] array) {
     	for (int i = 0; i < array.length; i++) {
             array[i] = generarNota();
         }
@@ -170,6 +153,7 @@ public class EjercicioArrays {
     	return estado;
     }
     
+    // Metodo para listas
     public static int[] listaResumen(int[] listaAlumnos) {
     	int tamano = 0;
     	for (int id : listaAlumnos) {
@@ -185,5 +169,31 @@ public class EjercicioArrays {
     		}
     	}
     	return resultado;
+    }
+    
+    //Metodos para los indices
+    public static int buscarMaximo(Integer[] notas) {
+        int max = 0;
+        for (int nota : notas) {
+            if (nota > max) max = nota;
+        }
+        return max;
+    }
+    
+    public static int buscarMinimo(Integer[] notas) {
+        int min = 11; // Empezamos por encima del máximo posible
+        for (int nota : notas) {
+            if (nota < min) min = nota;
+        }
+        return min;
+    }
+    
+    // Metodo para crear la lista de alumnos inicial
+    public static int[] crearListaClase(int numAlumnos) {
+        int[] lista = new int[numAlumnos];
+        for (int i = 0; i < numAlumnos; i++) {
+            lista[i] = i + 1;
+        }
+        return lista;
     }
 }
