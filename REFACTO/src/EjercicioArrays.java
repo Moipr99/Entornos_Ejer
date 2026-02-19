@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.List;
-
 public class EjercicioArrays {
     
     public static void main(String[] args) {
@@ -67,8 +66,7 @@ public class EjercicioArrays {
         meterNotas(practicas);
         
         //Creamos el vector calificaciones (media)
-        calificaciones = calcularCalificaciones(control, practicas);  
-        
+        calificaciones = calcularCalificaciones(control, practicas);         
         System.out.println("Prácticas      :" + Arrays.toString(practicas));
         System.out.println("Calificaciones :" + Arrays.toString(calificaciones));
         
@@ -76,7 +74,6 @@ public class EjercicioArrays {
         //Sacamos la estadística de calificaciones
         //hacemos un array de 10 para la estadística.
         estadistica = estadisticas(calificaciones);
-      
         for (int i=0; i< estadistica.length; i++){
             double sol = (Math.round(estadistica[i] * 10000.0)) / 100.0;
             System.out.println("Estadística nota tramo <=" 
@@ -84,52 +81,25 @@ public class EjercicioArrays {
                 + sol + "%");
         }
         
-      // METODO PARA APROB Y SUSP
+        // METODO PARA APROB Y SUSP
         //Aprobados y suspensos
-        aprobados = new int[numAlumnos];
-        suspensos = new int[numAlumnos];
-        int countAprobados = 0;
-        int countSuspensos = 0;
-        for (int i=0; i<numAlumnos; i++){
-            if (calificaciones[i] < 5){ // 
-                aprobados[i] = i;
-                countAprobados += 1;
-            }else{ 
-                suspensos[i] = i;
-                countSuspensos += 1;
-            }
-        }        
+        aprobados = estadoAlumno(calificaciones, true);
+        suspensos = estadoAlumno(calificaciones, false);
+        
         System.out.println("Relación de aprobados por nº de lista: " 
                 + Arrays.toString(aprobados));
         System.out.println("Relación de suspensos por nº de lista: " 
                 + Arrays.toString(suspensos));
         
-     // METODO/ARREGLO DE RESUMEN
+     // METODO DE RESUMEN
         //Resumen de aprobados y suspensos
-        int i = 0;
-        int x = 0;
-        int[] a = new int[countAprobados];
-        int[] s = new int[countSuspensos];
-        while(i < aprobados.length){
-            if(aprobados[i] != 0){
-                a[x] = aprobados[i];
-                i++;
-                x++;
-            }else{ i++; }
-        }
+        int[] aprob = listaResumen(aprobados);
+        int[] susp =listaResumen(suspensos);
         
-        i = x = 0;
-        while(i < suspensos.length){
-            if(suspensos[i] != 0){
-                s[x] = suspensos[i];
-                i++;
-                x++;
-            }else{ i++; }
-        }
         System.out.println("Resumen  de aprobados por nº de lista: " 
-                + Arrays.toString(a));
-        System.out.println("Resumen  de aprobados por nº de lista: " 
-                + Arrays.toString(s));
+                + Arrays.toString(aprob));
+        System.out.println("Resumen  de suspensos por nº de lista: " 
+                + Arrays.toString(susp));
     
         /*6. Suponer un vector de Calificaciones de tamaño 40 
         (máximo de alumnos por clase), pero que solo almacena las
@@ -181,5 +151,39 @@ public class EjercicioArrays {
             }
         }
         return estadistica;
+    }
+    
+    // Metodo para estado: aprobados/suspensos
+    public static int[] estadoAlumno(float[] notas, boolean aprobado) {
+    	int[] estado = new int[notas.length];
+    	for(int i = 0; i < notas.length; i++) {
+    		if(aprobado) {
+    			if(notas[i] >= 5) {
+    				estado[i] = i +1;
+    			}
+    		} else {
+    			if (notas[i] < 5) {
+    				estado[i] = i+1;
+    			}
+    		}
+    	} 
+    	return estado;
+    }
+    
+    public static int[] listaResumen(int[] listaAlumnos) {
+    	int tamano = 0;
+    	for (int id : listaAlumnos) {
+    		if (id != 0)
+    			tamano++;
+    	}
+    	
+    	int[] resultado = new int[tamano];
+    	int j = 0;
+    	for(int id : listaAlumnos) {
+    		if(id != 0) {
+    			resultado[j++] = id;
+    		}
+    	}
+    	return resultado;
     }
 }
